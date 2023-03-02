@@ -3,7 +3,7 @@
 git clone https://github.com/xg590/bafen.git
 cd bafen
 docker build -t bafen .
-docker run	--name bafen --interactive --tty --publish 8080:8080                              \
+docker run  --name bafen --interactive --tty --publish 8080:8080                              \
             --mount type=bind,src=${PWD}/addons.py,target=/home/username123/addons.py         \
             --mount type=bind,src=${PWD}/downloader.py,target=/home/username123/downloader.py \
 			-v ${PWD}/audio:/home/username123/audio bafen bash
