@@ -16,3 +16,5 @@ mitmproxy --set console_eventlog_verbosity=error --listen-host 0.0.0.0 -s addons
 docker start --attach bafen
 docker rm $(docker container ls -f 'status=exited' --quiet) # remove exited containers
 ```
+* Note 
+  1. Each time a new container is created, mitmproxy will generate a new certificate
