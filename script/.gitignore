@@ -5,3 +5,4 @@ __pycache__
 font
 oauth2_user_credentials.json
 playerlist_id.txt
+.new_site_packages
