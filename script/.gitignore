@@ -1,0 +1,7 @@
+audio/*.mp4
+video/*.mp4
+.ipynb_checkpoints
+__pycache__
+font
+oauth2_user_credentials.json
+playerlist_id.txt

@@ -1,4 +1,4 @@
-import flask, requests, pandas, threading, os, logging
+import flask, requests, pandas, threading, os, logging, math
 app = flask.Flask(__name__)
 @app.route("/")
 def index():
@@ -10,7 +10,13 @@ def play_list():
     req = flask.request
     global play_list
     play_list = {e['vid']:e['title'] for e in req.json['data']['articles']}
-    pandas.DataFrame(tuple(play_list.items()), columns=['vid','title']).to_csv('audio/list.csv', index=False)
+    df_old = pandas.read_csv('audio/list.csv')
+    df_old = df_old.set_index('vid') 
+    df_new = pandas.DataFrame(tuple(play_list.items()), columns=['vid','title'])
+    df_new['t_end'] = math.nan
+    df_new = df_new.set_index('vid') 
+    df_new.update(df_old)
+    df_new.to_csv('audio/list.csv')
     return ''
 
 @app.route("/audio_file_url", methods=['POST'])
@@ -47,4 +53,7 @@ def downloader(filename, MainPlayUrl, BackupPlayUrl):
             return
 
 logging.getLogger('werkzeug').disabled = True
-app.run(debug=False)
+
+if __name__ == '__main__':
+    os.chdir(os.path.dirname(__file__))
+    app.run(debug=False)
